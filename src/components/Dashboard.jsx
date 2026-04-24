@@ -1,16 +1,14 @@
-// src/components/Dashboard.jsx - ACTUALIZADO CON 4 NUEVOS GRÁFICOS
+// src/components/Dashboard.jsx - CON MÓDULOS
 import React, { useState } from 'react';
 import { FileText, Sheet, Filter, Calendar } from 'lucide-react';
 import KPICard from './KPICard';
-import VentasRegional from './VentasRegional';
-import ProductosTop from './ProductosTop';
-import TendenciaVentas from './TendenciaVentas';
-import EstadoInventario from './EstadoInventario';
-import GraficoDistribucion from './GraficoDistribucion';
-import GraficoGauge from './GraficoGauge';
-import GraficoScatter from './GraficoScatter';
-import GraficoWaterfall from './GraficoWaterfall';
 import UserProfile from './UserProfile';
+import ModuleNavigation from './ModuleNavigation';
+import ModuloVentas from './modules/ModuloVentas';
+import ModuloInventario from './modules/ModuloInventario';
+import ModuloFinanzas from './modules/ModuloFinanzas';
+import ModuloProductos from './modules/ModuloProductos';
+import ModuloClientes from './modules/ModuloClientes';
 import mockData from '../data/mockData';
 import { exportDashboardToPDF } from '../utils/exportPDF';
 import { exportToExcel } from '../utils/exportExcel';
@@ -18,6 +16,7 @@ import { exportToExcel } from '../utils/exportExcel';
 export default function Dashboard() {
   const [periodo, setPeriodo] = useState('mes');
   const [filtroRegion, setFiltroRegion] = useState('todas');
+  const [activeModule, setActiveModule] = useState('ventas');
 
   const handleExportPDF = () => {
     exportDashboardToPDF(mockData);
@@ -25,6 +24,23 @@ export default function Dashboard() {
 
   const handleExportExcel = () => {
     exportToExcel(mockData);
+  };
+
+  const renderModulo = () => {
+    switch (activeModule) {
+      case 'ventas':
+        return <ModuloVentas mockData={mockData} />;
+      case 'inventario':
+        return <ModuloInventario mockData={mockData} />;
+      case 'finanzas':
+        return <ModuloFinanzas mockData={mockData} />;
+      case 'productos':
+        return <ModuloProductos mockData={mockData} />;
+      case 'clientes':
+        return <ModuloClientes mockData={mockData} />;
+      default:
+        return <ModuloVentas mockData={mockData} />;
+    }
   };
 
   return (
@@ -99,103 +115,21 @@ export default function Dashboard() {
         </div>
       </header>
 
-      {/* Contenido Principal */}
+      {/* Module Navigation */}
+      <ModuleNavigation activeModule={activeModule} setActiveModule={setActiveModule} />
+
+      {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
-        {/* KPIs Grid */}
+        {/* KPIs Principales */}
         <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
           {mockData.kpis.map((kpi) => (
             <KPICard key={kpi.id} kpi={kpi} />
           ))}
         </section>
 
-        {/* Sección 1: Gráficos Principales */}
-        <section className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-          <VentasRegional datos={mockData.ventasPorRegion} />
-          <GraficoDistribucion datos={mockData.inventarioPorCategoria} />
-        </section>
-
-        {/* Sección 2: Tendencia y Gauge */}
-        <section className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-          <div className="lg:col-span-2">
-            <TendenciaVentas datos={mockData.tendenciasMensual} />
-          </div>
-        </section>
-
-        {/* Sección 3: Scatter y Waterfall */}
-        <section className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-          <GraficoScatter productos={mockData.productosTop} />
-          <GraficoWaterfall mockData={mockData} />
-        </section>
-
-        {/* Sección 4: Métricas de Cumplimiento */}
-        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-          <GraficoGauge 
-            valor={mockData.desempeño.eficienciaOperacional} 
-            maximo={100}
-            titulo="Eficiencia Operacional"
-            unidad="%"
-          />
-          <GraficoGauge 
-            valor={mockData.desempeño.satisfaccionCliente * 20} 
-            maximo={100}
-            titulo="Satisfacción Cliente"
-            unidad="%"
-          />
-          <GraficoGauge 
-            valor={100 - mockData.desempeño.tasaDevolucion} 
-            maximo={100}
-            titulo="Tasa Aceptación"
-            unidad="%"
-          />
-        </section>
-
-        {/* Top Productos */}
-        <section className="mb-8">
-          <ProductosTop datos={mockData.productosTop} />
-        </section>
-
-        {/* Estado Inventario */}
-        <section className="mb-8">
-          <EstadoInventario datos={mockData.inventarioPorCategoria} />
-        </section>
-
-        {/* Footer Stats */}
-        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4">
-            <p className="text-xs font-medium text-gray-600 dark:text-gray-400 mb-2">
-              Satisfacción del Cliente
-            </p>
-            <p className="text-2xl font-bold text-yellow-600 dark:text-yellow-400">
-              {mockData.desempeño.satisfaccionCliente} ⭐
-            </p>
-          </div>
-          
-          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4">
-            <p className="text-xs font-medium text-gray-600 dark:text-gray-400 mb-2">
-              Tiempo de Entrega Promedio
-            </p>
-            <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">
-              {mockData.desempeño.tiempoEntrega} días
-            </p>
-          </div>
-
-          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4">
-            <p className="text-xs font-medium text-gray-600 dark:text-gray-400 mb-2">
-              Tasa de Devolución
-            </p>
-            <p className="text-2xl font-bold text-red-600 dark:text-red-400">
-              {mockData.desempeño.tasaDevolucion}%
-            </p>
-          </div>
-
-          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4">
-            <p className="text-xs font-medium text-gray-600 dark:text-gray-400 mb-2">
-              Eficiencia Operacional
-            </p>
-            <p className="text-2xl font-bold text-green-600 dark:text-green-400">
-              {mockData.desempeño.eficienciaOperacional}%
-            </p>
-          </div>
+        {/* Contenido del módulo activo */}
+        <section>
+          {renderModulo()}
         </section>
       </main>
     </div>
