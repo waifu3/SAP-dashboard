@@ -1,4 +1,4 @@
-// src/components/ModuleNavigation.jsx
+// src/components/ModuleNavigation.jsx - RESPONSIVE
 import React from 'react';
 import { BarChart3, Package, TrendingUp, ShoppingCart, Users } from 'lucide-react';
 
@@ -9,7 +9,7 @@ export default function ModuleNavigation({ activeModule, setActiveModule }) {
       name: 'Ventas',
       icon: BarChart3,
       color: 'blue',
-      description: 'Análisis de ventas y tendencias'
+      description: 'Análisis de ventas'
     },
     {
       id: 'inventario',
@@ -44,7 +44,8 @@ export default function ModuleNavigation({ activeModule, setActiveModule }) {
   return (
     <div className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 sticky top-16 z-30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex overflow-x-auto gap-2 py-4">
+        {/* Desktop Navigation - Oculto en móvil */}
+        <div className="hidden sm:flex overflow-x-auto gap-2 py-4">
           {modules.map((module) => {
             const Icon = module.icon;
             const isActive = activeModule === module.id;
@@ -75,7 +76,35 @@ export default function ModuleNavigation({ activeModule, setActiveModule }) {
                 className={`flex items-center gap-2 px-4 py-2 rounded-lg border transition-all whitespace-nowrap font-medium text-sm ${colorClasses[module.color]}`}
               >
                 <Icon size={18} />
-                <span>{module.name}</span>
+                <span className="hidden md:inline">{module.name}</span>
+                <span className="inline md:hidden">{module.name.substring(0, 3)}</span>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Mobile Navigation - Solo iconos en móvil */}
+        <div className="sm:hidden flex justify-between items-center py-3 gap-1 overflow-x-auto">
+          {modules.map((module) => {
+            const Icon = module.icon;
+            const isActive = activeModule === module.id;
+
+            const colorClasses = {
+              blue: isActive ? 'bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300' : 'text-gray-600 dark:text-gray-400',
+              green: isActive ? 'bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300' : 'text-gray-600 dark:text-gray-400',
+              purple: isActive ? 'bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300' : 'text-gray-600 dark:text-gray-400',
+              amber: isActive ? 'bg-amber-100 dark:bg-amber-900 text-amber-700 dark:text-amber-300' : 'text-gray-600 dark:text-gray-400',
+              pink: isActive ? 'bg-pink-100 dark:bg-pink-900 text-pink-700 dark:text-pink-300' : 'text-gray-600 dark:text-gray-400',
+            };
+
+            return (
+              <button
+                key={module.id}
+                onClick={() => setActiveModule(module.id)}
+                title={module.name}
+                className={`flex-1 flex items-center justify-center p-2 rounded-lg transition-all ${colorClasses[module.color]}`}
+              >
+                <Icon size={20} />
               </button>
             );
           })}
