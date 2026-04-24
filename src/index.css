@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+:root { color-scheme: light; }
+@media (prefers-color-scheme: dark) { :root { color-scheme: dark; } }
+@layer base {
+  html { @apply scroll-smooth; }
+  body { @apply bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-50 transition-colors; }
+  h1 { @apply text-3xl font-bold tracking-tight; }
+  h2 { @apply text-2xl font-bold tracking-tight; }
+  h3 { @apply text-xl font-bold; }
+  button { @apply transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2; }
+  input[type="text"], input[type="email"], input[type="password"], input[type="number"], select, textarea {
+    @apply w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors;
+  }
+}
