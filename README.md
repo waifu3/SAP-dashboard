@@ -14,6 +14,7 @@ React Dashboard
 El frontend no se conecta directo a SAP B1. La API intermedia permite proteger credenciales, cachear metricas pesadas y normalizar la informacion para los componentes del dashboard.
 
 La primera definición funcional de KPIs está en `docs/sap-b1-kpi-catalog.md`.
+Las plantillas de consultas SAP B1 están en `docs/sap-b1-queries/`.
 
 ## Scripts
 
