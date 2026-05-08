@@ -1,5 +1,4 @@
 // src/components/modules/ModuloProductos.jsx
-import React from 'react';
 import ProductosTop from '../ProductosTop';
 import GraficoScatter from '../GraficoScatter';
 

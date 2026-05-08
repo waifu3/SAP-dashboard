@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { ChevronUp, ChevronDown } from 'lucide-react';
 export default function ProductosTop({ datos }) {
   const [sortBy, setSortBy] = useState('ventas');

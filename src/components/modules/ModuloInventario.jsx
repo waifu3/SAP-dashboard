@@ -1,5 +1,4 @@
 // src/components/modules/ModuloInventario.jsx
-import React from 'react';
 import GraficoDistribucion from '../GraficoDistribucion';
 import EstadoInventario from '../EstadoInventario';
 

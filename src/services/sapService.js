@@ -4,7 +4,7 @@
 import axios from 'axios';
 
 // Configuración base
-const SAP_API_BASE_URL = process.env.REACT_APP_SAP_API_URL || 'http://localhost:3001/api';
+const SAP_API_BASE_URL = import.meta.env.VITE_SAP_API_URL || 'http://localhost:3001/api';
 const SAP_TIMEOUT = 30000; // 30 segundos
 
 // Crear instancia axios
@@ -150,7 +150,7 @@ export const getDashboardCompleto = async () => {
  * Conexión con WebSocket para datos en tiempo real
  */
 export const subscribeToRealTimeData = (callback) => {
-  const wsURL = process.env.REACT_APP_SAP_WS_URL || 'ws://localhost:3001/ws';
+  const wsURL = import.meta.env.VITE_SAP_WS_URL || 'ws://localhost:3001/ws';
   const ws = new WebSocket(wsURL);
 
   ws.onopen = () => {

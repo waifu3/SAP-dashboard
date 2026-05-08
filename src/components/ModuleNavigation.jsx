@@ -1,5 +1,4 @@
 // src/components/ModuleNavigation.jsx - RESPONSIVE
-import React from 'react';
 import { BarChart3, Package, TrendingUp, ShoppingCart, Users } from 'lucide-react';
 
 export default function ModuleNavigation({ activeModule, setActiveModule }) {

@@ -1,5 +1,4 @@
 // src/components/GraficoScatter.jsx
-import React from 'react';
 import {
   ScatterChart,
   Scatter,

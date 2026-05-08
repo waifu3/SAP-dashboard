@@ -1,5 +1,4 @@
 // src/components/modules/ModuloVentas.jsx
-import React from 'react';
 import VentasRegional from '../VentasRegional';
 import TendenciaVentas from '../TendenciaVentas';
 import GraficoScatter from '../GraficoScatter';

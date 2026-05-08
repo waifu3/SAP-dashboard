@@ -1,5 +1,4 @@
 // src/components/GraficoDistribucion.jsx
-import React from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
 
 export default function GraficoDistribucion({ datos }) {

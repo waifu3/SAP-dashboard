@@ -1,5 +1,5 @@
 // src/components/MobileMenu.jsx
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Menu, X, BarChart3, Package, TrendingUp, ShoppingCart, Users } from 'lucide-react';
 
 export default function MobileMenu({ activeModule, setActiveModule }) {

@@ -1,15 +1,14 @@
 // src/hooks/useSAPData.js
 // Hook para manejar datos de SAP de forma fácil
 
-import { useState, useEffect } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 import * as sapService from '../services/sapService';
 
 /**
  * Hook para obtener datos de SAP
  * @param {function} fetchFunction - Función del servicio a ejecutar
- * @param {*} dependencies - Dependencias para re-ejecutar
  */
-export const useSAPData = (fetchFunction, dependencies = []) => {
+export const useSAPData = (fetchFunction) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -30,7 +29,7 @@ export const useSAPData = (fetchFunction, dependencies = []) => {
     };
 
     fetchData();
-  }, dependencies);
+  }, [fetchFunction]);
 
   return { data, loading, error };
 };
@@ -61,9 +60,13 @@ export const useKPIData = () => {
  * Hook para obtener ventas por región
  */
 export const useVentasPorRegion = (periodo = 'mes') => {
-  const { data, loading, error } = useSAPData(
+  const fetchVentasPorRegion = useCallback(
     () => sapService.getVentasPorRegion(periodo),
     [periodo]
+  );
+
+  const { data, loading, error } = useSAPData(
+    fetchVentasPorRegion
   );
 
   return { ventasPorRegion: data, loading, error };
@@ -95,9 +98,13 @@ export const useInventario = () => {
  * Hook para obtener top productos
  */
 export const useTopProductos = (limite = 10) => {
-  const { data, loading, error } = useSAPData(
+  const fetchTopProductos = useCallback(
     () => sapService.getTopProductos(limite),
     [limite]
+  );
+
+  const { data, loading, error } = useSAPData(
+    fetchTopProductos
   );
 
   return { topProductos: data, loading, error };

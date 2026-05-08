@@ -1,4 +1,3 @@
-import React from 'react';
 import { AlertCircle, CheckCircle, AlertTriangle } from 'lucide-react';
 export default function EstadoInventario({ datos }) {
   const getStatusIcon = (estado) => {if (estado === 'Óptimo') return <CheckCircle className="text-green-500" size={20} />; if (estado === 'Bajo') return <AlertTriangle className="text-orange-500" size={20} />; if (estado === 'Crítico') return <AlertCircle className="text-red-500" size={20} />; return <CheckCircle className="text-gray-500" size={20} />;};

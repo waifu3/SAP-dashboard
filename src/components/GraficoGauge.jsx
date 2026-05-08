@@ -1,5 +1,4 @@
 // src/components/GraficoGauge.jsx
-import React from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
 
 export default function GraficoGauge({ valor, maximo = 100, titulo, unidad = '%' }) {

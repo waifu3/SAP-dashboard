@@ -1,8 +1,8 @@
 // src/components/UserProfile.jsx
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { LogOut, User, Settings, ChevronDown } from 'lucide-react';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../context/useAuth';
 
 export default function UserProfile() {
   const { user, logout } = useAuth();

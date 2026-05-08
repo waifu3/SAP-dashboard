@@ -1,4 +1,3 @@
-import React from 'react';
 import { TrendingUp, TrendingDown, ShoppingCart, Users, BarChart3, Package } from 'lucide-react';
 
 const iconMap = { TrendingUp, TrendingDown, ShoppingCart, Users, BarChart3, Package };

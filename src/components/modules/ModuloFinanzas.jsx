@@ -1,5 +1,4 @@
 // src/components/modules/ModuloFinanzas.jsx
-import React from 'react';
 import GraficoWaterfall from '../GraficoWaterfall';
 import GraficoGauge from '../GraficoGauge';
 

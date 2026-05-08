@@ -1,20 +1,13 @@
 // src/context/AuthContext.jsx
-import React, { createContext, useState, useEffect } from 'react';
-
-export const AuthContext = createContext();
+import { useState } from 'react';
+import { AuthContext } from './authContextValue';
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  // Cargar usuario guardado en localStorage
-  useEffect(() => {
+  const [user, setUser] = useState(() => {
     const savedUser = localStorage.getItem('user');
-    if (savedUser) {
-      setUser(JSON.parse(savedUser));
-    }
-    setLoading(false);
-  }, []);
+    return savedUser ? JSON.parse(savedUser) : null;
+  });
+  const loading = false;
 
   const login = (email, password) => {
     // Validación simple (en producción usarías una API real)
@@ -51,12 +44,4 @@ export function AuthProvider({ children }) {
       {children}
     </AuthContext.Provider>
   );
-}
-
-export function useAuth() {
-  const context = React.useContext(AuthContext);
-  if (!context) {
-    throw new Error('useAuth debe usarse dentro de AuthProvider');
-  }
-  return context;
 }

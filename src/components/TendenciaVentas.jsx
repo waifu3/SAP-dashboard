@@ -1,4 +1,3 @@
-import React from 'react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 export default function TendenciaVentas({ datos }) {
   const formatCurrency = (value) => `$${(value / 1000).toFixed(0)}K`;

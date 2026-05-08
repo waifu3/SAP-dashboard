@@ -1,5 +1,5 @@
 // src/components/Dashboard.jsx - RESPONSIVE MEJORADO
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { FileText, Sheet, Filter, Calendar } from 'lucide-react';
 import KPICard from './KPICard';
 import UserProfile from './UserProfile';

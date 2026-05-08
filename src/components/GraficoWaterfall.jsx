@@ -1,6 +1,5 @@
 // src/components/GraficoWaterfall.jsx
-import React from 'react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Cell, Cell as CellComponent } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell as CellComponent } from 'recharts';
 
 export default function GraficoWaterfall({ mockData }) {
   // Datos simulados de flujo de ganancia
