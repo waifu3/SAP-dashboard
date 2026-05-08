@@ -2,9 +2,11 @@
 // Servicio para conectar con SAP (Backend)
 
 import axios from 'axios';
+import mockData from '../data/mockData';
 
 // Configuración base
 const SAP_API_BASE_URL = import.meta.env.VITE_SAP_API_URL || 'http://localhost:3001/api';
+const USE_MOCK_DATA = import.meta.env.VITE_USE_MOCK_DATA !== 'false';
 const SAP_TIMEOUT = 30000; // 30 segundos
 
 // Crear instancia axios
@@ -42,6 +44,10 @@ sapAxios.interceptors.response.use(
  * Obtener datos de KPIs desde SAP
  */
 export const getKPIData = async () => {
+  if (USE_MOCK_DATA) {
+    return mockData.kpis;
+  }
+
   try {
     const response = await sapAxios.get('/kpis');
     return response.data;
@@ -55,6 +61,10 @@ export const getKPIData = async () => {
  * Obtener ventas por región desde SAP
  */
 export const getVentasPorRegion = async (periodo = 'mes') => {
+  if (USE_MOCK_DATA) {
+    return mockData.ventasPorRegion;
+  }
+
   try {
     const response = await sapAxios.get('/ventas/por-region', {
       params: { periodo }
@@ -70,6 +80,10 @@ export const getVentasPorRegion = async (periodo = 'mes') => {
  * Obtener tendencia de ventas (últimos 12 meses)
  */
 export const getTendenciaVentas = async () => {
+  if (USE_MOCK_DATA) {
+    return mockData.tendenciasMensual;
+  }
+
   try {
     const response = await sapAxios.get('/ventas/tendencia-mensual');
     return response.data;
@@ -83,6 +97,10 @@ export const getTendenciaVentas = async () => {
  * Obtener inventario por categoría
  */
 export const getInventarioPorCategoria = async () => {
+  if (USE_MOCK_DATA) {
+    return mockData.inventarioPorCategoria;
+  }
+
   try {
     const response = await sapAxios.get('/inventario/por-categoria');
     return response.data;
@@ -96,6 +114,10 @@ export const getInventarioPorCategoria = async () => {
  * Obtener top productos
  */
 export const getTopProductos = async (limite = 10) => {
+  if (USE_MOCK_DATA) {
+    return mockData.productosTop.slice(0, limite);
+  }
+
   try {
     const response = await sapAxios.get('/productos/top', {
       params: { limite }
@@ -111,6 +133,10 @@ export const getTopProductos = async (limite = 10) => {
  * Obtener clientes por industria
  */
 export const getClientesPorIndustria = async () => {
+  if (USE_MOCK_DATA) {
+    return mockData.clientesPorIndustria;
+  }
+
   try {
     const response = await sapAxios.get('/clientes/por-industria');
     return response.data;
@@ -124,8 +150,12 @@ export const getClientesPorIndustria = async () => {
  * Obtener métricas de desempeño
  */
 export const getMetricasDesempeño = async () => {
+  if (USE_MOCK_DATA) {
+    return mockData.desempeño;
+  }
+
   try {
-    const response = await sapAxios.get('/metricas/desempeño');
+    const response = await sapAxios.get('/metricas/desempeno');
     return response.data;
   } catch (error) {
     console.error('Error fetching métricas de desempeño:', error);
@@ -137,6 +167,17 @@ export const getMetricasDesempeño = async () => {
  * Obtener datos completos del dashboard
  */
 export const getDashboardCompleto = async () => {
+  if (USE_MOCK_DATA) {
+    return {
+      ...mockData,
+      _meta: {
+        source: 'mock',
+        generatedAt: new Date().toISOString(),
+        cached: false,
+      },
+    };
+  }
+
   try {
     const response = await sapAxios.get('/dashboard/completo');
     return response.data;

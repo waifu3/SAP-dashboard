@@ -1,64 +1,67 @@
 export const mockData = {
   kpis: [
-    { id: 1, title: "Ingresos Totales", value: 2845600, currency: "CLP", change: 12.5, icon: "TrendingUp", color: "blue" },
-    { id: 2, title: "Órdenes Completadas", value: 1234, change: 8.3, icon: "ShoppingCart", color: "green" },
-    { id: 3, title: "Clientes Activos", value: 486, change: -2.1, icon: "Users", color: "purple" },
-    { id: 4, title: "Margen Operacional", value: 32.5, unit: "%", change: 4.2, icon: "BarChart3", color: "orange" },
-    { id: 5, title: "Inventario Disponible", value: 5847, unit: "unidades", change: 6.8, icon: "Package", color: "red" }
+    { id: 1, title: "Ventas del Mes", value: 284560000, currency: "CLP", change: 12.5, icon: "TrendingUp", color: "blue" },
+    { id: 2, title: "Ventas Acumuladas Año", value: 2458900000, currency: "CLP", change: 9.8, icon: "BarChart3", color: "green" },
+    { id: 3, title: "Margen Bruto Mensual", value: 32.5, unit: "%", change: 4.2, icon: "Percent", color: "purple" },
+    { id: 4, title: "Órdenes de Venta Abiertas", value: 86, change: -3.1, icon: "ShoppingCart", color: "orange" },
+    { id: 5, title: "Cuentas por Cobrar Vencidas", value: 48500000, currency: "CLP", change: -6.4, icon: "CircleDollarSign", color: "red" },
+    { id: 6, title: "Stock Disponible Total", value: 5847, unit: "unidades", change: 6.8, icon: "Package", color: "cyan" },
+    { id: 7, title: "Productos Bajo Mínimo", value: 18, change: 2.9, icon: "TriangleAlert", color: "amber" },
+    { id: 8, title: "Top Productos por Venta", value: 10, unit: "productos", change: 0, icon: "Boxes", color: "slate" }
   ],
   ventasPorRegion: [
-    { region: "Norte", ventas: 425000, target: 400000 },
-    { region: "Central", ventas: 890000, target: 850000 },
-    { region: "Sur", ventas: 652000, target: 600000 },
-    { region: "Metropolitana", ventas: 678000, target: 700000 },
-    { region: "Austral", ventas: 200600, target: 180000 }
+    { region: "Norte", ventas: 42500000, target: 40000000 },
+    { region: "Central", ventas: 89000000, target: 85000000 },
+    { region: "Sur", ventas: 65200000, target: 60000000 },
+    { region: "Metropolitana", ventas: 67800000, target: 70000000 },
+    { region: "Austral", ventas: 20060000, target: 18000000 }
   ],
   productosTop: [
-    { id: "P001", nombre: "Software ERP Cloud", ventas: 450000, cantidad: 52 },
-    { id: "P002", nombre: "Módulo HR", ventas: 380000, cantidad: 98 },
-    { id: "P003", nombre: "Analytics Premium", ventas: 325000, cantidad: 67 },
-    { id: "P004", nombre: "Integration Suite", ventas: 285000, cantidad: 45 },
-    { id: "P005", nombre: "Security Module", ventas: 240000, cantidad: 156 },
-    { id: "P006", nombre: "Reporting Tool", ventas: 195000, cantidad: 234 },
-    { id: "P007", nombre: "Mobile App", ventas: 165000, cantidad: 312 },
-    { id: "P008", nombre: "Data Management", ventas: 142000, cantidad: 89 },
-    { id: "P009", nombre: "API Gateway", ventas: 125000, cantidad: 123 },
-    { id: "P010", nombre: "Compliance Plus", ventas: 98000, cantidad: 45 }
+    { id: "A-1001", nombre: "Fertilizante Premium 25 kg", ventas: 45000000, cantidad: 520 },
+    { id: "A-1002", nombre: "Sustrato Profesional 50 L", ventas: 38000000, cantidad: 980 },
+    { id: "A-1003", nombre: "Macetero Industrial 30 L", ventas: 32500000, cantidad: 670 },
+    { id: "A-1004", nombre: "Bandeja Germinación 128 Cav.", ventas: 28500000, cantidad: 450 },
+    { id: "A-1005", nombre: "Sistema Riego por Goteo", ventas: 24000000, cantidad: 156 },
+    { id: "A-1006", nombre: "Malla Sombra 80%", ventas: 19500000, cantidad: 234 },
+    { id: "A-1007", nombre: "Tierra Ácida 25 L", ventas: 16500000, cantidad: 312 },
+    { id: "A-1008", nombre: "Bioestimulante Foliar", ventas: 14200000, cantidad: 89 },
+    { id: "A-1009", nombre: "Invernadero Modular", ventas: 12500000, cantidad: 12 },
+    { id: "A-1010", nombre: "Kit Control Plagas", ventas: 9800000, cantidad: 145 }
   ],
   tendenciasMensual: [
-    { mes: "Ene", ventas: 185000, presupuesto: 200000, ganancia: 58500 },
-    { mes: "Feb", ventas: 201000, presupuesto: 200000, ganancia: 63300 },
-    { mes: "Mar", ventas: 220000, presupuesto: 210000, ganancia: 69000 },
-    { mes: "Abr", ventas: 198000, presupuesto: 205000, ganancia: 59400 },
-    { mes: "May", ventas: 235000, presupuesto: 215000, ganancia: 74500 },
-    { mes: "Jun", ventas: 255000, presupuesto: 220000, ganancia: 81000 },
-    { mes: "Jul", ventas: 268000, presupuesto: 225000, ganancia: 85000 },
-    { mes: "Ago", ventas: 245000, presupuesto: 220000, ganancia: 77500 },
-    { mes: "Sep", ventas: 278000, presupuesto: 230000, ganancia: 87500 },
-    { mes: "Oct", ventas: 295000, presupuesto: 235000, ganancia: 93500 },
-    { mes: "Nov", ventas: 312000, presupuesto: 240000, ganancia: 98000 },
-    { mes: "Dic", ventas: 352000, presupuesto: 250000, ganancia: 112000 }
+    { mes: "Ene", ventas: 185000000, presupuesto: 200000000, ganancia: 58500000 },
+    { mes: "Feb", ventas: 201000000, presupuesto: 200000000, ganancia: 63300000 },
+    { mes: "Mar", ventas: 220000000, presupuesto: 210000000, ganancia: 69000000 },
+    { mes: "Abr", ventas: 198000000, presupuesto: 205000000, ganancia: 59400000 },
+    { mes: "May", ventas: 235000000, presupuesto: 215000000, ganancia: 74500000 },
+    { mes: "Jun", ventas: 255000000, presupuesto: 220000000, ganancia: 81000000 },
+    { mes: "Jul", ventas: 268000000, presupuesto: 225000000, ganancia: 85000000 },
+    { mes: "Ago", ventas: 245000000, presupuesto: 220000000, ganancia: 77500000 },
+    { mes: "Sep", ventas: 278000000, presupuesto: 230000000, ganancia: 87500000 },
+    { mes: "Oct", ventas: 295000000, presupuesto: 235000000, ganancia: 93500000 },
+    { mes: "Nov", ventas: 312000000, presupuesto: 240000000, ganancia: 98000000 },
+    { mes: "Dic", ventas: 352000000, presupuesto: 250000000, ganancia: 112000000 }
   ],
   inventarioPorCategoria: [
-    { categoria: "Licencias Software", disponible: 1245, minimo: 500, estado: "Óptimo", rotacion: "Alta" },
-    { categoria: "Servicios Implementación", disponible: 856, minimo: 300, estado: "Óptimo", rotacion: "Alta" },
-    { categoria: "Mantenimiento y Soporte", disponible: 1890, minimo: 800, estado: "Óptimo", rotacion: "Media" },
-    { categoria: "Consultoría", disponible: 567, minimo: 200, estado: "Bajo", rotacion: "Media" },
-    { categoria: "Capacitación", disponible: 289, minimo: 150, estado: "Crítico", rotacion: "Baja" }
+    { categoria: "Fertilizantes", disponible: 1245, minimo: 500, estado: "Óptimo", rotacion: "Alta" },
+    { categoria: "Sustratos", disponible: 856, minimo: 300, estado: "Óptimo", rotacion: "Alta" },
+    { categoria: "Maceteros", disponible: 1890, minimo: 800, estado: "Óptimo", rotacion: "Media" },
+    { categoria: "Riego", disponible: 567, minimo: 200, estado: "Bajo", rotacion: "Media" },
+    { categoria: "Control Plagas", disponible: 289, minimo: 150, estado: "Crítico", rotacion: "Baja" }
   ],
   clientesPorIndustria: [
-    { industria: "Manufactura", clientes: 145, ingresos: 890000 },
-    { industria: "Retail", clientes: 98, ingresos: 567000 },
-    { industria: "Servicios Financieros", clientes: 67, ingresos: 756000 },
-    { industria: "Gobierno", clientes: 45, ingresos: 345000 },
-    { industria: "Educación", clientes: 56, ingresos: 287000 }
+    { industria: "Viveros", clientes: 145, ingresos: 89000000 },
+    { industria: "Retail Jardín", clientes: 98, ingresos: 56700000 },
+    { industria: "Agrícola", clientes: 67, ingresos: 75600000 },
+    { industria: "Municipalidades", clientes: 45, ingresos: 34500000 },
+    { industria: "Paisajismo", clientes: 56, ingresos: 28700000 }
   ],
   ordenesRecientes: [
-    { id: "ORD-2024-001", cliente: "Acme Corp", producto: "Software ERP Cloud", monto: 125000, estado: "Completado", fecha: "2024-04-20", porcentaje: 100 },
-    { id: "ORD-2024-002", cliente: "Tech Solutions", producto: "Analytics Premium", monto: 85000, estado: "En Proceso", fecha: "2024-04-19", porcentaje: 75 },
-    { id: "ORD-2024-003", cliente: "Global Industries", producto: "Integration Suite", monto: 95000, estado: "En Proceso", fecha: "2024-04-18", porcentaje: 45 },
-    { id: "ORD-2024-004", cliente: "Digital Ventures", producto: "Módulo HR", monto: 65000, estado: "Pendiente", fecha: "2024-04-17", porcentaje: 20 },
-    { id: "ORD-2024-005", cliente: "Enterprise Plus", producto: "Security Module", monto: 45000, estado: "Pendiente", fecha: "2024-04-16", porcentaje: 0 }
+    { id: "OV-2026-001", cliente: "Vivero Los Aromos", producto: "Fertilizante Premium 25 kg", monto: 12500000, estado: "Abierta", fecha: "2026-05-02", porcentaje: 65 },
+    { id: "OV-2026-002", cliente: "Jardines del Sur", producto: "Sustrato Profesional 50 L", monto: 8500000, estado: "En Preparación", fecha: "2026-05-01", porcentaje: 75 },
+    { id: "OV-2026-003", cliente: "Agro Norte", producto: "Sistema Riego por Goteo", monto: 9500000, estado: "Parcial", fecha: "2026-04-30", porcentaje: 45 },
+    { id: "OV-2026-004", cliente: "Municipalidad Central", producto: "Macetero Industrial 30 L", monto: 6500000, estado: "Pendiente", fecha: "2026-04-29", porcentaje: 20 },
+    { id: "OV-2026-005", cliente: "Paisajes Andinos", producto: "Malla Sombra 80%", monto: 4500000, estado: "Pendiente", fecha: "2026-04-28", porcentaje: 0 }
   ],
   desempeño: {
     satisfaccionCliente: 4.7,
@@ -68,4 +71,5 @@ export const mockData = {
     eficienciaOperacional: 87.5
   }
 };
+
 export default mockData;

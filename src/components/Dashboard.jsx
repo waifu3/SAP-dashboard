@@ -10,7 +10,8 @@ import ModuloInventario from './modules/ModuloInventario';
 import ModuloFinanzas from './modules/ModuloFinanzas';
 import ModuloProductos from './modules/ModuloProductos';
 import ModuloClientes from './modules/ModuloClientes';
-import mockData from '../data/mockData';
+import mockDataFallback from '../data/mockData';
+import { useDashboardData } from '../hooks/useSAPData';
 import { exportDashboardToPDF } from '../utils/exportPDF';
 import { exportToExcel } from '../utils/exportExcel';
 
@@ -18,29 +19,35 @@ export default function Dashboard() {
   const [periodo, setPeriodo] = useState('mes');
   const [filtroRegion, setFiltroRegion] = useState('todas');
   const [activeModule, setActiveModule] = useState('ventas');
+  const { dashboardData, loading, error } = useDashboardData();
+  const dashboardDataSource = dashboardData || mockDataFallback;
+  const sourceLabel = dashboardDataSource._meta?.source === 'mock' ? 'Datos mock' : 'SAP B1';
+  const updatedAt = dashboardDataSource._meta?.generatedAt
+    ? new Date(dashboardDataSource._meta.generatedAt).toLocaleString('es-CL')
+    : 'Sin sincronizar';
 
   const handleExportPDF = () => {
-    exportDashboardToPDF(mockData);
+    exportDashboardToPDF(dashboardDataSource);
   };
 
   const handleExportExcel = () => {
-    exportToExcel(mockData);
+    exportToExcel(dashboardDataSource);
   };
 
   const renderModulo = () => {
     switch (activeModule) {
       case 'ventas':
-        return <ModuloVentas mockData={mockData} />;
+        return <ModuloVentas mockData={dashboardDataSource} />;
       case 'inventario':
-        return <ModuloInventario mockData={mockData} />;
+        return <ModuloInventario mockData={dashboardDataSource} />;
       case 'finanzas':
-        return <ModuloFinanzas mockData={mockData} />;
+        return <ModuloFinanzas mockData={dashboardDataSource} />;
       case 'productos':
-        return <ModuloProductos mockData={mockData} />;
+        return <ModuloProductos mockData={dashboardDataSource} />;
       case 'clientes':
-        return <ModuloClientes mockData={mockData} />;
+        return <ModuloClientes mockData={dashboardDataSource} />;
       default:
-        return <ModuloVentas mockData={mockData} />;
+        return <ModuloVentas mockData={dashboardDataSource} />;
     }
   };
 
@@ -58,6 +65,9 @@ export default function Dashboard() {
               </h1>
               <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-0.5 sm:mt-1 truncate">
                 Vista integral de métricas
+              </p>
+              <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">
+                Fuente: {sourceLabel} | Actualizado: {updatedAt}
               </p>
             </div>
             
@@ -132,9 +142,21 @@ export default function Dashboard() {
 
       {/* Main Content - Responsive */}
       <main className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 md:py-8 pb-20 sm:pb-8">
+        {loading && (
+          <div className="mb-4 rounded-lg border border-blue-200 bg-blue-50 px-4 py-3 text-sm text-blue-800 dark:border-blue-800 dark:bg-blue-900/20 dark:text-blue-300">
+            Sincronizando datos del dashboard...
+          </div>
+        )}
+
+        {error && (
+          <div className="mb-4 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800 dark:border-amber-800 dark:bg-amber-900/20 dark:text-amber-300">
+            No se pudo conectar con la API SAP. Se muestran datos locales de respaldo.
+          </div>
+        )}
+
         {/* KPIs - Responsive Grid */}
-        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4 mb-6 sm:mb-8">
-          {mockData.kpis.map((kpi) => (
+        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
+          {dashboardDataSource.kpis.map((kpi) => (
             <KPICard key={kpi.id} kpi={kpi} />
           ))}
         </section>
