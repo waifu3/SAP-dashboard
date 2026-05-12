@@ -13,36 +13,44 @@ export const useSAPData = (fetchFunction) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-        const result = await fetchFunction();
-        setData(result);
-      } catch (err) {
-        setError(err.message || 'Error al obtener datos');
-        console.error('Error fetching data:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
+  const refetch = useCallback(async (...args) => {
+    try {
+      setLoading(true);
+      setError(null);
+      const result = await fetchFunction(...args);
+      setData(result);
+      return result;
+    } catch (err) {
+      setError(err.message || 'Error al obtener datos');
+      console.error('Error fetching data:', err);
+      return null;
+    } finally {
+      setLoading(false);
+    }
   }, [fetchFunction]);
 
-  return { data, loading, error };
+  useEffect(() => {
+    Promise.resolve().then(() => {
+      refetch();
+    });
+  }, [refetch]);
+
+  return { data, loading, error, refetch };
 };
 
 /**
  * Hook para obtener dashboard completo
  */
 export const useDashboardData = () => {
-  const { data, loading, error } = useSAPData(
-    sapService.getDashboardCompleto
+  const fetchDashboard = useCallback(
+    (options) => sapService.getDashboardCompleto(options),
+    []
+  );
+  const { data, loading, error, refetch } = useSAPData(
+    fetchDashboard
   );
 
-  return { dashboardData: data, loading, error };
+  return { dashboardData: data, loading, error, refetchDashboard: refetch };
 };
 
 /**

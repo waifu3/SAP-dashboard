@@ -1,114 +1,78 @@
-// src/components/ModuleNavigation.jsx - RESPONSIVE
-import { BarChart3, Package, TrendingUp, ShoppingCart, Users } from 'lucide-react';
+// src/components/ModuleNavigation.jsx
+import { BarChart3, Package, ShoppingCart, TrendingUp, Users } from 'lucide-react';
+
+const modules = [
+  {
+    id: 'ventas',
+    name: 'Ventas',
+    icon: BarChart3,
+    color: 'blue',
+    description: 'Análisis de ventas',
+  },
+  {
+    id: 'inventario',
+    name: 'Inventario',
+    icon: Package,
+    color: 'green',
+    description: 'Gestión de inventario',
+  },
+  {
+    id: 'finanzas',
+    name: 'Finanzas',
+    icon: TrendingUp,
+    color: 'purple',
+    description: 'Análisis financiero',
+  },
+  {
+    id: 'productos',
+    name: 'Productos',
+    icon: ShoppingCart,
+    color: 'amber',
+    description: 'Análisis de productos',
+  },
+  {
+    id: 'clientes',
+    name: 'Clientes',
+    icon: Users,
+    color: 'pink',
+    description: 'Segmentación de clientes',
+  },
+];
+
+const activeClasses = {
+  blue: 'border-blue-300 bg-blue-50 text-blue-700 dark:border-blue-800 dark:bg-blue-950 dark:text-blue-300',
+  green: 'border-emerald-300 bg-emerald-50 text-emerald-700 dark:border-emerald-800 dark:bg-emerald-950 dark:text-emerald-300',
+  purple: 'border-violet-300 bg-violet-50 text-violet-700 dark:border-violet-800 dark:bg-violet-950 dark:text-violet-300',
+  amber: 'border-amber-300 bg-amber-50 text-amber-700 dark:border-amber-800 dark:bg-amber-950 dark:text-amber-300',
+  pink: 'border-pink-300 bg-pink-50 text-pink-700 dark:border-pink-800 dark:bg-pink-950 dark:text-pink-300',
+};
+
+const inactiveClasses =
+  'border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-50 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300 dark:hover:bg-gray-800';
 
 export default function ModuleNavigation({ activeModule, setActiveModule }) {
-  const modules = [
-    {
-      id: 'ventas',
-      name: 'Ventas',
-      icon: BarChart3,
-      color: 'blue',
-      description: 'Análisis de ventas'
-    },
-    {
-      id: 'inventario',
-      name: 'Inventario',
-      icon: Package,
-      color: 'green',
-      description: 'Gestión de inventario'
-    },
-    {
-      id: 'finanzas',
-      name: 'Finanzas',
-      icon: TrendingUp,
-      color: 'purple',
-      description: 'Análisis financiero'
-    },
-    {
-      id: 'productos',
-      name: 'Productos',
-      icon: ShoppingCart,
-      color: 'amber',
-      description: 'Análisis de productos'
-    },
-    {
-      id: 'clientes',
-      name: 'Clientes',
-      icon: Users,
-      color: 'pink',
-      description: 'Segmentación de clientes'
-    }
-  ];
-
   return (
-    <div className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 sticky top-16 z-30">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Desktop Navigation - Oculto en móvil */}
-        <div className="hidden sm:flex overflow-x-auto gap-2 py-4">
+    <nav className="border-b border-slate-200 bg-slate-100/90 dark:border-gray-800 dark:bg-gray-950">
+      <div className="mx-auto max-w-7xl px-3 sm:px-4 md:px-6 lg:px-8">
+        <div className="flex gap-2 overflow-x-auto py-3">
           {modules.map((module) => {
             const Icon = module.icon;
             const isActive = activeModule === module.id;
-            
-            const colorClasses = {
-              blue: isActive
-                ? 'bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 border-blue-300 dark:border-blue-700'
-                : 'bg-gray-50 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600 border-gray-200 dark:border-gray-600',
-              green: isActive
-                ? 'bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 border-green-300 dark:border-green-700'
-                : 'bg-gray-50 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600 border-gray-200 dark:border-gray-600',
-              purple: isActive
-                ? 'bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 border-purple-300 dark:border-purple-700'
-                : 'bg-gray-50 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600 border-gray-200 dark:border-gray-600',
-              amber: isActive
-                ? 'bg-amber-100 dark:bg-amber-900 text-amber-700 dark:text-amber-300 border-amber-300 dark:border-amber-700'
-                : 'bg-gray-50 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600 border-gray-200 dark:border-gray-600',
-              pink: isActive
-                ? 'bg-pink-100 dark:bg-pink-900 text-pink-700 dark:text-pink-300 border-pink-300 dark:border-pink-700'
-                : 'bg-gray-50 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600 border-gray-200 dark:border-gray-600',
-            };
 
             return (
               <button
                 key={module.id}
                 onClick={() => setActiveModule(module.id)}
                 title={module.description}
-                className={`flex items-center gap-2 px-4 py-2 rounded-lg border transition-all whitespace-nowrap font-medium text-sm ${colorClasses[module.color]}`}
+                className={`flex min-w-28 items-center justify-center gap-2 rounded-lg border px-3 py-2 text-sm font-semibold whitespace-nowrap shadow-sm transition sm:min-w-0 sm:px-4 ${isActive ? activeClasses[module.color] : inactiveClasses}`}
               >
-                <Icon size={18} />
-                <span className="hidden md:inline">{module.name}</span>
-                <span className="inline md:hidden">{module.name.substring(0, 3)}</span>
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Mobile Navigation - Solo iconos en móvil */}
-        <div className="sm:hidden flex justify-between items-center py-3 gap-1 overflow-x-auto">
-          {modules.map((module) => {
-            const Icon = module.icon;
-            const isActive = activeModule === module.id;
-
-            const colorClasses = {
-              blue: isActive ? 'bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300' : 'text-gray-600 dark:text-gray-400',
-              green: isActive ? 'bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300' : 'text-gray-600 dark:text-gray-400',
-              purple: isActive ? 'bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300' : 'text-gray-600 dark:text-gray-400',
-              amber: isActive ? 'bg-amber-100 dark:bg-amber-900 text-amber-700 dark:text-amber-300' : 'text-gray-600 dark:text-gray-400',
-              pink: isActive ? 'bg-pink-100 dark:bg-pink-900 text-pink-700 dark:text-pink-300' : 'text-gray-600 dark:text-gray-400',
-            };
-
-            return (
-              <button
-                key={module.id}
-                onClick={() => setActiveModule(module.id)}
-                title={module.name}
-                className={`flex-1 flex items-center justify-center p-2 rounded-lg transition-all ${colorClasses[module.color]}`}
-              >
-                <Icon size={20} />
+                <Icon size={17} />
+                {module.name}
               </button>
             );
           })}
         </div>
       </div>
-    </div>
+    </nav>
   );
 }

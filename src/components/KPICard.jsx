@@ -23,21 +23,55 @@ const iconMap = {
   TriangleAlert,
   Users,
 };
+
 const colorConfig = {
-  blue: { bg: 'bg-blue-50 dark:bg-blue-950', border: 'border-blue-200 dark:border-blue-800', icon: 'text-blue-600 dark:text-blue-400' },
-  green: { bg: 'bg-green-50 dark:bg-green-950', border: 'border-green-200 dark:border-green-800', icon: 'text-green-600 dark:text-green-400' },
-  purple: { bg: 'bg-purple-50 dark:bg-purple-950', border: 'border-purple-200 dark:border-purple-800', icon: 'text-purple-600 dark:text-purple-400' },
-  orange: { bg: 'bg-orange-50 dark:bg-orange-950', border: 'border-orange-200 dark:border-orange-800', icon: 'text-orange-600 dark:text-orange-400' },
-  red: { bg: 'bg-red-50 dark:bg-red-950', border: 'border-red-200 dark:border-red-800', icon: 'text-red-600 dark:text-red-400' },
-  cyan: { bg: 'bg-cyan-50 dark:bg-cyan-950', border: 'border-cyan-200 dark:border-cyan-800', icon: 'text-cyan-600 dark:text-cyan-400' },
-  amber: { bg: 'bg-amber-50 dark:bg-amber-950', border: 'border-amber-200 dark:border-amber-800', icon: 'text-amber-600 dark:text-amber-400' },
-  slate: { bg: 'bg-slate-50 dark:bg-slate-950', border: 'border-slate-200 dark:border-slate-800', icon: 'text-slate-600 dark:text-slate-400' }
+  blue: {
+    accent: 'bg-blue-500',
+    icon: 'text-blue-600 dark:text-blue-300',
+    ring: 'ring-blue-100 dark:ring-blue-900/40',
+  },
+  green: {
+    accent: 'bg-emerald-500',
+    icon: 'text-emerald-600 dark:text-emerald-300',
+    ring: 'ring-emerald-100 dark:ring-emerald-900/40',
+  },
+  purple: {
+    accent: 'bg-violet-500',
+    icon: 'text-violet-600 dark:text-violet-300',
+    ring: 'ring-violet-100 dark:ring-violet-900/40',
+  },
+  orange: {
+    accent: 'bg-orange-500',
+    icon: 'text-orange-600 dark:text-orange-300',
+    ring: 'ring-orange-100 dark:ring-orange-900/40',
+  },
+  red: {
+    accent: 'bg-red-500',
+    icon: 'text-red-600 dark:text-red-300',
+    ring: 'ring-red-100 dark:ring-red-900/40',
+  },
+  cyan: {
+    accent: 'bg-cyan-500',
+    icon: 'text-cyan-600 dark:text-cyan-300',
+    ring: 'ring-cyan-100 dark:ring-cyan-900/40',
+  },
+  amber: {
+    accent: 'bg-amber-500',
+    icon: 'text-amber-600 dark:text-amber-300',
+    ring: 'ring-amber-100 dark:ring-amber-900/40',
+  },
+  slate: {
+    accent: 'bg-slate-500',
+    icon: 'text-slate-600 dark:text-slate-300',
+    ring: 'ring-slate-100 dark:ring-slate-800',
+  },
 };
 
 export default function KPICard({ kpi }) {
   const Icon = iconMap[kpi.icon] || TrendingUp;
   const colors = colorConfig[kpi.color] || colorConfig.blue;
   const isPositive = kpi.change >= 0;
+
   const formatValue = (value) => {
     if (kpi.currency) {
       return `$${(value / 1000000).toFixed(1)}M`;
@@ -51,18 +85,28 @@ export default function KPICard({ kpi }) {
   };
 
   return (
-    <div className={`${colors.bg} border ${colors.border} rounded-lg p-6 hover:shadow-md transition-shadow`}>
-      <div className="flex items-start justify-between mb-4">
-        <div className="flex-1"><p className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">{kpi.title}</p>
-          <p className="text-2xl font-bold text-gray-900 dark:text-white">
+    <div className={`group relative overflow-hidden rounded-lg border border-slate-200 bg-white p-5 shadow-sm ring-4 ${colors.ring} transition hover:-translate-y-0.5 hover:shadow-md dark:border-gray-800 dark:bg-gray-900`}>
+      <div className={`absolute inset-x-0 top-0 h-1 ${colors.accent}`} />
+
+      <div className="mb-4 flex items-start justify-between gap-3">
+        <div className="min-w-0 flex-1">
+          <p className="mb-2 truncate text-sm font-semibold text-slate-600 dark:text-gray-400">
+            {kpi.title}
+          </p>
+          <p className="text-2xl font-bold tracking-tight text-slate-950 dark:text-white">
             {formatValue(kpi.value)}
-            {kpi.unit && kpi.unit !== '%' && <span className="text-sm ml-1">{kpi.unit}</span>}
-          </p></div>
-        <div className={`${colors.icon} bg-white dark:bg-gray-800 p-3 rounded-lg`}><Icon size={24} /></div>
+            {kpi.unit && kpi.unit !== '%' && <span className="ml-1 text-sm">{kpi.unit}</span>}
+          </p>
+        </div>
+
+        <div className={`${colors.icon} rounded-lg border border-slate-200 bg-slate-50 p-3 dark:border-gray-700 dark:bg-gray-800`}>
+          <Icon size={22} />
+        </div>
       </div>
-      <div className={`flex items-center gap-1 ${isPositive ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
+
+      <div className={`inline-flex items-center gap-1 rounded-md px-2 py-1 text-xs font-bold ${isPositive ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300' : 'bg-red-50 text-red-700 dark:bg-red-950 dark:text-red-300'}`}>
         {isPositive ? <TrendingUp size={16} /> : <TrendingDown size={16} />}
-        <span className="text-sm font-medium">{Math.abs(kpi.change)}% {isPositive ? 'aumento' : 'disminución'}</span>
+        <span>{Math.abs(kpi.change)}% {isPositive ? 'aumento' : 'disminución'}</span>
       </div>
     </div>
   );

@@ -166,7 +166,7 @@ export const getMetricasDesempeño = async () => {
 /**
  * Obtener datos completos del dashboard
  */
-export const getDashboardCompleto = async () => {
+export const getDashboardCompleto = async ({ forceRefresh = false } = {}) => {
   if (USE_MOCK_DATA) {
     return {
       ...mockData,
@@ -179,7 +179,9 @@ export const getDashboardCompleto = async () => {
   }
 
   try {
-    const response = await sapAxios.get('/dashboard/completo');
+    const response = await sapAxios.get('/dashboard/completo', {
+      params: forceRefresh ? { refresh: 'true' } : undefined,
+    });
     return response.data;
   } catch (error) {
     console.error('Error fetching dashboard completo:', error);
